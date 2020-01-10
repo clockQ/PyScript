@@ -139,7 +139,7 @@ def k8s_cluster_start():
             f.close()
 
 
-    def write_channel():
+    def write_flannel():
         flannel_conf_path = "/etc/cni/net.d/10-flannel.conf"
         if os.path.exists(flannel_conf_path) and os.stat(flannel_conf_path).st_size > 0:
             pass
@@ -169,7 +169,7 @@ FLANNEL_IPMASQ=true''')
             f2.close()
 
     write_docker_daemon()
-    write_channel()
+    write_flannel()
     cmds = (
         # Docker 相关设置
         "swapoff -a",
