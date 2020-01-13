@@ -103,13 +103,13 @@ def install_k8s():
         'curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add -', # 3.3 添加 K8S aliyun 秘钥
         'add-apt-repository "deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-$(lsb_release -cs) main"', # 3.4 添加 aliyun 的 K8S 仓库
         'apt-get update', # 3.5 再次更新index
-        'apt-cache madison kubeadm', # 3.6 查看可用版本
-        'apt-cache madison kubelet', # 3.6 查看可用版本
         'apt-cache madison kubectl', # 3.6 查看可用版本
-        'apt-get install -y kubeadm=%s' % (K8S_VERSION), # 3.7 安装 $K8S_VERSION 的 K8S
-        'apt-get install -y kubelet=%s' % (K8S_VERSION), # 3.7 安装 $K8S_VERSION 的 K8S
+        'apt-cache madison kubelet', # 3.6 查看可用版本
+        'apt-cache madison kubeadm', # 3.6 查看可用版本
         'apt-get install -y kubectl=%s' % (K8S_VERSION), # 3.7 安装 $K8S_VERSION 的 K8S
-        'apt-mark hold kubelet kubeadm kubectl', # 3.8 禁用更新
+        'apt-get install -y kubelet=%s' % (K8S_VERSION), # 3.7 安装 $K8S_VERSION 的 K8S
+        'apt-get install -y kubeadm=%s' % (K8S_VERSION), # 3.7 安装 $K8S_VERSION 的 K8S
+        'apt-mark hold kubectl kubelet kubeadm', # 3.8 禁用更新
     )
     execCmd(cmds)
 
@@ -192,7 +192,7 @@ FLANNEL_IPMASQ=true''')
         "echo ''",
         'echo "请手动启动 Master 节点"',
         'echo "下列步骤中，出现错误可以查看日志 \`journalctl -f -u kubelet.service\`"',
-        'echo "\t 1. 初始化 Master \`sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.3.6\`"',
+        'echo "\t 1. 初始化 Master \`sudo kubeadm init --pod-network-cidr=172.100.0.0/16 --apiserver-advertise-address=192.168.*.*\`"',
         'echo "\t 2. 如果需要，安装flannel网络 \`kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml\`"',
     )
     execCmd(cmds)
