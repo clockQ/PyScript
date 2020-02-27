@@ -197,15 +197,15 @@ FLANNEL_IPMASQ=true''')
 
 def k8s_cluster_reset():
     cmds = (
-        "echo 'kubeadm reset'",
-        "echo 'systemctl restart kubelet'",
-        "echo 'systemctl restart docker'",
-        'echo "rm -rf /var/lib/cni/"',
-        'echo "rm -rf /var/lib/kubelet/*"',
-        'echo "rm -rf /etc/cni/"',
-        'echo "ifconfig cni0 down"',
-        'echo "ifconfig flannel.1 down"',
-        'echo "ifconfig docker0 down"',
+        "kubeadm reset",
+        "systemctl restart kubelet",
+        "systemctl restart docker",
+        "rm -rf /var/lib/cni/",
+        "rm -rf /var/lib/kubelet/*",
+        "rm -rf /etc/cni/",
+        "ifconfig cni0 down",
+        "ifconfig flannel.1 down",
+        "ifconfig docker0 down",
     )
     execCmd(cmds)
 
