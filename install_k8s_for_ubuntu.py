@@ -61,7 +61,6 @@ def delete_old_docker():
     execCmd(cmds)
 
 
-
 def install_docker():
     '添加 Docker 的仓库，并安装 Docker'
 
@@ -93,7 +92,6 @@ def install_docker():
     execCmd(cmds)
 
 
-
 def install_k8s():
     '添加 Kubernetes 的仓库，并安装 Kubernetes'
 
@@ -112,7 +110,6 @@ def install_k8s():
         'apt-mark hold kubectl kubelet kubeadm', # 3.8 禁用更新
     )
     execCmd(cmds)
-
 
 
 def k8s_cluster_start():
@@ -139,37 +136,7 @@ def k8s_cluster_start():
             f.close()
 
 
-    def write_flannel():
-        flannel_conf_path = "/etc/cni/net.d/10-flannel.conf"
-        if os.path.exists(flannel_conf_path) and os.stat(flannel_conf_path).st_size > 0:
-            pass
-        else:
-            if not os.path.exists(flannel_conf_path[:flannel_conf_path.rfind("/")]):
-                os.makedirs(flannel_conf_path[:flannel_conf_path.rfind("/")])
-            f1 = open(flannel_conf_path, "w")
-            f1.write('''{"name":"cbr0","type":"flannel","delegate": {"isDefaultGateway": true}}''')
-            f1.close()
-
-        if not os.path.exists("/usr/share/oci-umount/oci-umount.d/"):
-            os.makedirs("/usr/share/oci-umount/oci-umount.d/")
-        if not os.path.exists("/run/flannel/"):
-            os.makedirs("/run/flannel/")
-
-        flannel_subnet_path = "/run/flannel/subnet.env"
-        if os.path.exists(flannel_subnet_path) and os.stat(flannel_subnet_path).st_size > 0:
-            pass
-        else:
-            if not os.path.exists(flannel_subnet_path[:flannel_subnet_path.rfind("/")]):
-                os.makedirs(flannel_subnet_path[:flannel_subnet_path.rfind("/")])
-            f2 = open(flannel_subnet_path, "w")
-            f2.write('''FLANNEL_NETWORK=193.100.0.0/16
-FLANNEL_SUBNET=193.100.1.0/24
-FLANNEL_MTU=1450
-FLANNEL_IPMASQ=true''')
-            f2.close()
-
     write_docker_daemon()
-# 无须使用    write_flannel()
     cmds = (
         # Docker 相关设置
         "swapoff -a",
@@ -198,13 +165,61 @@ FLANNEL_IPMASQ=true''')
     execCmd(cmds)
 
 
+def write_flannel():
+    flannel_conf_path = "/etc/cni/net.d/10-flannel.conf"
+    if os.path.exists(flannel_conf_path) and os.stat(flannel_conf_path).st_size > 0:
+        pass
+    else:
+        if not os.path.exists(flannel_conf_path[:flannel_conf_path.rfind("/")]):
+            os.makedirs(flannel_conf_path[:flannel_conf_path.rfind("/")])
+        f1 = open(flannel_conf_path, "w")
+        f1.write('''{"name":"cbr0","type":"flannel","delegate": {"isDefaultGateway": true}}''')
+        f1.close()
+
+    if not os.path.exists("/usr/share/oci-umount/oci-umount.d/"):
+        os.makedirs("/usr/share/oci-umount/oci-umount.d/")
+    if not os.path.exists("/run/flannel/"):
+        os.makedirs("/run/flannel/")
+
+    flannel_subnet_path = "/run/flannel/subnet.env"
+    if os.path.exists(flannel_subnet_path) and os.stat(flannel_subnet_path).st_size > 0:
+        pass
+    else:
+        if not os.path.exists(flannel_subnet_path[:flannel_subnet_path.rfind("/")]):
+            os.makedirs(flannel_subnet_path[:flannel_subnet_path.rfind("/")])
+        f2 = open(flannel_subnet_path, "w")
+        f2.write('''FLANNEL_NETWORK=10.244.0.0/16
+FLANNEL_SUBNET=10.244.0.1/24
+FLANNEL_MTU=1450
+FLANNEL_IPMASQ=true''')
+        f2.close()
+
+
+def k8s_cluster_reset():
+    cmds = (
+        "echo 'kubeadm reset'",
+        "echo 'systemctl restart kubelet'",
+        "echo 'systemctl restart docker'",
+        'echo "rm -rf /var/lib/cni/"',
+        'echo "rm -rf /var/lib/kubelet/*"',
+        'echo "rm -rf /etc/cni/"',
+        'echo "ifconfig cni0 down"',
+        'echo "ifconfig flannel.1 down"',
+        'echo "ifconfig docker0 down"',
+    )
+    execCmd(cmds)
+
+
 helpers = (
     {"desc": "更换原本的应用仓库为阿里云仓库", "func": change_aliyun_rep},
     {"desc": "删除原有 Docker", "func": delete_old_docker},
     {"desc": "安装 "+DOCKER_VERSION+" 版本的 Docker", "func": install_docker},
     {"desc": "安装 "+K8S_VERSION+" 版本的 Kubernetes", "func": install_k8s},
+    {"desc": "（废弃）设置 flannel 环境", "func": install_k8s},
     {"desc": "K8S 集群的启动", "func": k8s_cluster_start},
+    {"desc": "K8S 集群的完全 reset", "func": k8s_cluster_reset},
 )
+
 
 print("目前该脚本只适用于 %s-%s" % (SYSTEM_NAME, SYSTEM_VERSION))
 print("CentOs 请参考 https://docs.docker.com/install/linux/docker-ce/centos/")
