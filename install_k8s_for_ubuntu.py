@@ -169,7 +169,7 @@ FLANNEL_IPMASQ=true''')
             f2.close()
 
     write_docker_daemon()
-    write_flannel()
+# 无须使用    write_flannel()
     cmds = (
         # Docker 相关设置
         "swapoff -a",
@@ -192,7 +192,7 @@ FLANNEL_IPMASQ=true''')
         "echo ''",
         'echo "请手动启动 Master 节点"',
         'echo "下列步骤中，出现错误可以查看日志 \`journalctl -f -u kubelet.service\`"',
-        'echo "\t 1. 初始化 Master \`sudo kubeadm init --pod-network-cidr=193.100.0.0/16 --apiserver-advertise-address=192.168.*.*\`"',
+        'echo "\t 1. 初始化 Master \`sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.100.14\`"',
         'echo "\t 2. 如果需要，安装flannel网络 \`kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml\`"',
     )
     execCmd(cmds)
