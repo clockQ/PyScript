@@ -211,12 +211,12 @@ def k8s_cluster_reset():
 
 
 helpers = (
-    {"desc": "更换原本的应用仓库为阿里云仓库", "func": change_aliyun_rep},
-    {"desc": "删除原有 Docker", "func": delete_old_docker},
-    {"desc": "安装 "+DOCKER_VERSION+" 版本的 Docker", "func": install_docker},
-    {"desc": "安装 "+K8S_VERSION+" 版本的 Kubernetes", "func": install_k8s},
+    {"desc": "[√]更换原本的应用仓库为阿里云仓库", "func": change_aliyun_rep},
+    {"desc": "[√]安装 "+DOCKER_VERSION+" 版本的 Docker", "func": install_docker},
+    {"desc": "[√]安装 "+K8S_VERSION+" 版本的 Kubernetes", "func": install_k8s},
+    {"desc": "[√]K8S 集群的启动", "func": k8s_cluster_start},
     {"desc": "（废弃）设置 flannel 环境", "func": install_k8s},
-    {"desc": "K8S 集群的启动", "func": k8s_cluster_start},
+    {"desc": "删除原有 Docker", "func": delete_old_docker},
     {"desc": "K8S 集群的完全 reset", "func": k8s_cluster_reset},
 )
 
