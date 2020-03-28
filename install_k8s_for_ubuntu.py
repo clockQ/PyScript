@@ -1,5 +1,5 @@
-#!/usr/bin/python2.7
-#coding=utf-8
+#!/usr/bin/python3
+# -*- coding:utf-8 -*-
 
 import os
 
@@ -223,7 +223,7 @@ helpers = (
 
 print("目前该脚本只适用于 %s-%s" % (SYSTEM_NAME, SYSTEM_VERSION))
 print("CentOs 请参考 https://docs.docker.com/install/linux/docker-ce/centos/")
-raw_input("按任意键继续...")
+input("按任意键继续...")
 print("")
 
 switch = 0
@@ -233,14 +233,14 @@ while(switch >= 0):
 
     print("")
     print("输入非选项中的值即可退出脚本。")
-    switch = int(raw_input("请选择要执行的操作: "))
+    switch = int(input("请选择要执行的操作: "))
     print("")
 
     if switch < 0 or switch >= len(helpers):
         print("没有此选项，脚本停止")
         break
     else:
-        sure = raw_input("请输入'yes'确认: ")
+        sure = input("请输入'yes'确认: ")
         print("")
         if sure == "yes":
             helpers[switch]["func"]()
