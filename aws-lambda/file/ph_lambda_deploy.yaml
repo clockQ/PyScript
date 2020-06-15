@@ -1,0 +1,41 @@
+kind: Deploy
+metadata:
+  name: &name python-lambda-example
+  version: 0-0-9 # 版本必须升级，不然 lambda function alias 创建失败
+  bucket: ph-api-lambda
+  runtime: python3.8,python3.6 # lambda funciton 会按照第一个使用， layer 全使用
+role:
+  arpd_path: s3://ph-api-lambda/python-lambda-example/role/trust-policy-v0-0-1.json
+  policys_arn:
+    - arn:aws-cn:iam::aws:policy/service-role/AWSLambdaRole
+    - arn:aws-cn:iam::aws:policy/AWSLambdaExecute
+    - arn:aws-cn:iam::444603803904:policy/AWSKmsDecrypt
+    - arn:aws-cn:iam::aws:policy/AmazonAPIGatewayInvokeFullAccess
+layer:
+#  lib_path: .venv/lib/python3.8/site-packages/
+#  package_name: &layer_zip python-lambda-example-layer.zip
+#  layer_path: *layer_zip
+  layer_path: s3://ph-api-lambda/python-lambda-example/layer/python-lambda-example-layer-v0-0-1.zip
+  layer_desc: 自动化测试
+lambda:
+#  code_path: hello_world
+#  package_name: &code_zip python-lambda-example-code.zip
+#  lambda_path: *code_zip
+  lambda_path: s3://ph-api-lambda/python-lambda-example/lambda/python-lambda-example-code-v0-0-1.zip
+  role_name: *name
+  lambda_handler: hello_world.app.lambda_handler
+  lambda_layers: *name
+  lambda_desc: 自动化测试
+  lambda_timeout: 50
+  lambda_memory_size: 128
+  lambda_env:
+    TEST: test
+  lambda_tag:
+    language: python
+gateway:
+#  gateway_path: file/python-lambda-example-openapi.yaml
+  gateway_path: s3://ph-api-lambda/python-lambda-example/gateway/python-lambda-example-openapi-v0-0-1.yaml
+  lambda_name: *name
+  role_name: *name
+  gateway_desc: 自动化测试
+

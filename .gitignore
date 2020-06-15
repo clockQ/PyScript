@@ -1,4 +1,9 @@
 *.pyc
 .idea/
 .DS_Store
+.venv/
+
 test_file/
+
+
+aws-lambda/aws-lambda.zip

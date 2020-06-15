@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest = "*"
+pyinstaller = "*"
+pipenv = "*"
+
+[packages]
+boto3 = "*"
+requests = "*"
+
+[requires]
+python_version = "3.8"
+
+[scripts]
+package = "bash -c \"mkdir -p .package/python && pipenv lock -r | grep '==' | awk -F '==' '{print $1}' | xargs -I '{}' cp -r ${VIRTUAL_ENV}/lib/python3.8/site-packages/{} .package/python/; cd .package && zip -r -q ../package.zip . && cd - && rm -rf .package && mv package.zip $0\""
