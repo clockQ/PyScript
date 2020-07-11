@@ -6,4 +6,4 @@
 test_file/
 
 
-aws-lambda/aws-lambda.zip
+aws-lambda/*.zip

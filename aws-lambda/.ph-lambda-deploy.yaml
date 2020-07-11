@@ -1,0 +1,34 @@
+example:
+  gateway:
+    api_template: s3://ph-api-lambda/template/gateway/jsonapi-openapi-template.yaml
+    lambda_name: example
+    rest_api_id: 2t69b7x032
+    role_name: example-lambda-role
+  lambda:
+    code_path: hello_world
+    lambda_desc: 自动化发布
+    lambda_handler: hello_world.app.lambda_handler
+    lambda_layers: example
+    lambda_memory_size: 128
+    lambda_path: example-code.zip
+    lambda_timeout: 50
+    package_name: example-code.zip
+    role_name: example-lambda-role
+  layer:
+    layer_desc: 自动化发布
+    layer_path: example-layer.zip
+    lib_path: .venv/lib/python3.8/site-packages/
+    package_name: example-layer.zip
+  metadata:
+    bucket: ph-api-lambda
+    desc: 自动化发布
+    name: example
+    runtime: python3.8
+    version: v2
+  role:
+    arpd_path: s3://ph-api-lambda/template/role/trust-policy-template.json
+    policys_arn:
+    - arn:aws-cn:iam::aws:policy/service-role/AWSLambdaRole
+    - arn:aws-cn:iam::aws:policy/AWSLambdaExecute
+    - arn:aws-cn:iam::arn:444603803904:policy/AWSKmsDecrypt
+    - arn:aws-cn:iam::aws:policy/AmazonAPIGatewayInvokeFullAccess
