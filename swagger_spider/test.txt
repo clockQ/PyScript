@@ -1,0 +1,1080 @@
+1 数据字典接口
+1.1 根据字典Id分页查询字典项
+	URL： /api/rest/v01/dateTableById/{rootNodeId}
+	类型： GET
+	入参：
+		1. pageNo - 当前页码，默认：1
+		2. pageSzie - 当前页大小，默认：200
+		3. rootNodeId - 字典Id
+	出参：
+		{
+		    "code": 0,
+		    "data": {
+		        "pageNo": 0,
+		        "pageSize": 0,
+		        "result": [
+		            {}
+		        ],
+		        "total": 0
+		    },
+		    "msg": "string"
+		}
+
+
+1.2 查询全部数据字典
+	URL： /api/rest/v01/dateType
+	类型： GET
+	入参：
+	出参：
+		{
+		    "code": 0,
+		    "data": [
+		        {
+		            "createTime": 0,
+		            "creatorId": "string",
+		            "dataName": "string",
+		            "dataSort": 0,
+		            "dataType": "string",
+		            "discarded": true,
+		            "id": "string",
+		            "internalId": "string",
+		            "isSonNode": "string",
+		            "labels": [
+		                "string"
+		            ],
+		            "modifierId": "string",
+		            "modifyTime": 0,
+		            "nodeName": "string",
+		            "props": {},
+		            "tags": {},
+		            "treeJson": "string",
+		            "versionData": "string"
+		        }
+		    ],
+		    "msg": "string"
+		}
+
+
+1.3 根据级联型字典Id查询级联树
+	URL： /api/rest/v01/dateTypeId/{treeId}
+	类型： GET
+	入参：
+		1. treeId - 级联字典Id
+	出参：
+		{
+		    "code": 0,
+		    "data": "string",
+		    "msg": "string"
+		}
+
+
+1.4 新增数据字典
+	URL： /api/rest/v01/dic
+	类型： POST
+	入参：
+		1. dicParam - dicParam
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+1.5 删除数据字典
+	URL： /api/rest/v01/dic
+	类型： DELETE
+	入参：
+		1. dicId - 字典Id
+		2. labels - 应用标签列表，例如：APM,BFSM,详见数据字典-标签
+		3. tenantId - 租户ID，区分不同的租户，默认值为：admin
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+1.6 修改数据字典名称
+	URL： /api/rest/v01/dic/name
+	类型： POST
+	入参：
+		1. dicParam - dicParam
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+1.7 级联型字典的树上增加节点
+	URL： /api/rest/v01/dic/tree/addNode
+	类型： PUT
+	入参：
+		1. newNodeId - 新增节点Id
+		2. newNodeName - 新增节点名称
+		3. pId - 父节点Id
+		4. treeId - 级联字典Id
+	出参：
+		{
+		    "code": 0,
+		    "data": {
+		        "createTime": 0,
+		        "creatorId": "string",
+		        "dataName": "string",
+		        "dataSort": 0,
+		        "dataType": "string",
+		        "discarded": true,
+		        "id": "string",
+		        "internalId": "string",
+		        "isSonNode": "string",
+		        "labels": [
+		            "string"
+		        ],
+		        "modifierId": "string",
+		        "modifyTime": 0,
+		        "nodeName": "string",
+		        "props": {},
+		        "tags": {},
+		        "treeJson": "string",
+		        "versionData": "string"
+		    },
+		    "msg": "string"
+		}
+
+
+1.8 删除级联型字典中的节点
+	URL： /api/rest/v01/dic/tree/delNode
+	类型： DELETE
+	入参：
+		1. nodeIdToDel - 待删除节点Id
+		2. pId - 父节点Id
+		3. treeId - 级联字典Id
+	出参：
+		{
+		    "code": 0,
+		    "data": "string",
+		    "msg": "string"
+		}
+
+
+1.9 增加数据字典项
+	URL： /api/rest/v01/dicValue
+	类型： POST
+	入参：
+		1. dicNapeParam - dicNapeParam
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+1.10 修改数据字典项
+	URL： /api/rest/v01/dicValue
+	类型： PUT
+	入参：
+		1. dicId - 字典Id
+		2. itemId - 字典项Id
+		3. itemVal - 字典项值
+		4. labels - 应用标签列表，例如：APM,BFSM，参见数据字典-标签
+		5. tenantId - 租户ID，区分不同的租户，默认值为：admin
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+1.11 删除数据字典项
+	URL： /api/rest/v01/dicValue
+	类型： DELETE
+	入参：
+		1. dicId - 字典Id
+		2. itemId - 字典项Id
+		3. labels - 应用标签列表，例如：APM,BFSM，参见数据字典-标签
+		4. tenantId - 租户ID，区分不同的租户，默认值为：admin
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+
+2 维度数据查询接口
+2.1 设备型号-删除
+	URL： /api/rest/v01/dic/devModel/del
+	类型： DELETE
+	入参：
+		1. labels - 应用标签列表，例如：APM,BFSM,详见数据字典-标签
+		2. modelId - 型号Id
+		3. tenantId - 租户ID，区分不同的租户，默认值为：admin
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+2.2 设备型号-新增
+	URL： /api/rest/v01/dic/devModel/new
+	类型： POST
+	入参：
+		1. labels - 应用标签列表，例如：APM,BFSM,详见数据字典-标签
+		2. model - 型号数据
+		3. tenantId - 租户ID，区分不同的租户，默认值为：admin
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+2.3 设备型号-更新
+	URL： /api/rest/v01/dic/devModel/update
+	类型： PUT
+	入参：
+		1. labels - 应用标签列表，例如：APM,BFSM,详见数据字典-标签
+		2. model - 型号数据
+		3. tenantId - 租户ID，区分不同的租户，默认值为：admin
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+2.4 设备型号-按名称查询
+	URL： /api/rest/v01/query/devModel/byName
+	类型： GET
+	入参：
+		1. labels - 应用标签列表，例如：APM,BFSM,详见数据字典-标签
+		2. menufId - 设备厂家Id
+		3. nameVal - 在名称中搜索的值，支持模糊查询
+		4. pageNo - 当前页，默认1
+		5. pageSize - 分页大小，默认值100
+		6. tenantId - 租户ID，区分不同的租户，默认值为：admin
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+2.5 查询数据字典项
+	URL： /api/rest/v01/query/dicItem
+	类型： GET
+	入参：
+		1. dicId - 字典Id，如厂商字典id：DIC_MANUFACTURE
+		2. itemVal - 字典项查询值，支持模糊查询
+		3. labels - 应用标签列表，例如：APM,BFSM,详见数据字典-标签
+		4. tenantId - 租户ID，区分不同的租户，默认值为：admin
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+2.6 按名称查询引用维度实例
+	URL： /api/rest/v01/query/res/byName
+	类型： GET
+	入参：
+		1. labels - 应用标签列表，例如：APM,BFSM,详见数据字典-标签
+		2. nameVal - 在名称中搜索的值，支持模糊查询
+		3. tenantId - 租户ID，区分不同的租户，默认值为：admin
+		4. typeId - 资源类型Id，如业务系统类型id：MOD_BUSI_SYS
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+2.7 查询业务系统树
+	URL： /api/rest/v01/query/sys/tree
+	类型： GET
+	入参：
+		1. labels - 应用标签列表，例如：APM,BFSM,详见数据字典-标签
+		2. tenantId - 租户ID，区分不同的租户，默认值为：admin
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+
+3 账号的资源权限接口
+3.1 查询账号的资源权限条件
+	URL： /api/rest/v01/accAuthCdn
+	类型： GET
+	入参：
+		1. appId - 应用标签，例如：BFSM，APM
+		2. tenantId - 租户Id，默认为：admin
+		3. userId - 用户账号
+	出参：
+		{
+		    "data": {
+		        "conditions": [
+		            {}
+		        ],
+		        "tags": [
+		            "string"
+		        ]
+		    },
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+3.2 查询账号有权限的资源Id列表
+	URL： /api/rest/v01/resIds
+	类型： GET
+	入参：
+		1. appId - 应用标签，例如：BFSM，APM
+		2. tenantId - 租户Id，默认为：admin
+		3. userId - 用户账号
+	出参：
+		{
+		    "data": [
+		        "string"
+		    ],
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+
+4 资源实例关系接口
+4.1 创建资源间关系
+	URL： /api/rest/v01/resRela
+	类型： POST
+	入参：
+		1. param - 创建资源实例关系的参数
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+4.2 查询指定资源id列表中的资源实例为端点的关系（包括出和入）
+	URL： /api/rest/v01/resRela/batchQuery
+	类型： POST
+	入参：
+		1. resourceIds - 资源实例Id的列表
+	出参：
+		{
+		    "data": [
+		        {
+		            "createTime": 0,
+		            "endId": "string",
+		            "id": "string",
+		            "props": {},
+		            "relMode": "string",
+		            "relType": "string",
+		            "startId": "string",
+		            "tags": [
+		                "string"
+		            ]
+		        }
+		    ],
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+4.3 通过资源id和关联的类型查询关联的资源（包括出和入）
+	URL： /api/rest/v01/resRela/queryByTypeIds
+	类型： GET
+	入参：
+		1. labels - 应用标签列表，如：ALL，APM
+		2. pageNo - 当前页码，默认：1
+		3. pageSize - 分页大小，默认：200
+		4. rId - 资源实例Id，例：8603128227861697446
+		5. tenantId - 租户Id，默认值为：admin
+		6. typeIds - 类型Id，例：MOD_BUSI_SYS
+	出参：
+		{
+		    "data": [
+		        {}
+		    ],
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+4.4 通过资源id和关联的类型查询各节点间关系
+	URL： /api/rest/v01/resRela/queryRelsByTypeIds
+	类型： GET
+	入参：
+		1. labels - 应用标签列表，如：ALL，APM
+		2. pageNo - 当前页码，默认：1
+		3. pageSize - 分页大小，默认：200
+		4. rId - 资源实例Id，例：8603128227861697446
+		5. tenantId - 租户Id，默认值为：admin
+		6. typeIds - 类型Id，例：MOD_BUSI_SYS
+	出参：
+		{
+		    "data": [
+		        {
+		            "createTime": 0,
+		            "endId": "string",
+		            "id": "string",
+		            "props": {},
+		            "relMode": "string",
+		            "relType": "string",
+		            "startId": "string",
+		            "tags": [
+		                "string"
+		            ]
+		        }
+		    ],
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+4.5 删除资源关系
+	URL： /api/rest/v01/resRela/{id}
+	类型： DELETE
+	入参：
+		1. id - 资源实例关系Id
+	出参：
+		{
+		    "data": [
+		        {
+		            "createTime": 0,
+		            "creatorId": "string",
+		            "discarded": true,
+		            "endNode": {},
+		            "id": "string",
+		            "modifierId": "string",
+		            "modifyTime": 0,
+		            "propId": "string",
+		            "props": {},
+		            "relationMode": "string",
+		            "relationName": "string",
+		            "relationType": "string",
+		            "startNode": {},
+		            "tags": [
+		                "string"
+		            ]
+		        }
+		    ],
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+
+5 资源实例接口
+5.1 获取所有资源实例
+	URL： /api/rest/v01/allRes/{resTypeId}
+	类型： GET
+	入参：
+		1. labels - 应用标签列表，例如：APM,BFSM，参见数据字典-标签
+		2. pageNo - 当前页，默认1
+		3. pageSize - 分页大小，默认值100
+		4. resTypeId - 资源类型Id
+		5. tenantId - 租户ID，区分不同的租户，默认值为：admin
+		6. userAcc - 用户账号
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+5.2 根据资源类型id统计资源数量
+	URL： /api/rest/v01/count/{resTypeId}
+	类型： GET
+	入参：
+		1. labels - 应用标签列表
+		2. resTypeId - 资源类型Id
+		3. tenantId - 租户Id
+		4. userAcc - 用户账号
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+5.3 通过机房获取资源列表
+	URL： /api/rest/v01/getResByRoom
+	类型： GET
+	入参：
+		1. id - 机房Id
+		2. labels - 应用标签列表，例如：APM,BFSM，参见数据字典-标签
+		3. tenantId - 租户ID，区分不同的租户，默认值为：admin
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+5.4 根据资源类型id分页获取资源实例
+	URL： /api/rest/v01/pageRes/{resTypeId}
+	类型： GET
+	入参：
+		1. page_no - 当前分页，默认值：1
+		2. page_size - 分页大小，默认值：500
+		3. resTypeId - 资源类型Id
+		4. userAcc - 用户账号
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string",
+		    "pageNo": 0,
+		    "totalRows": 0
+		}
+
+
+5.5 根据资源id列表分页查询资源并翻译
+	URL： /api/rest/v01/pageResListWithTrans/ids
+	类型： POST
+	入参：
+		1. appId - 应用ID，区分不同应用的ID，如：APM
+		2. ids - 资源id的列表
+		3. page_no - 当前页码，默认值：1
+		4. page_size - 分页大小，默认值：500
+		5. tenantId - 租户ID，区分不同的租户，默认值为：admin
+		6. userAcc - 当前用户的账号(如：root)
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string",
+		    "pageNo": 0,
+		    "totalRows": 0
+		}
+
+
+5.6 根据资源搜索代码searchCodelist列表分页查询资源并翻译
+	URL： /api/rest/v01/pageResListWithTrans/searchCodelist
+	类型： POST
+	入参：
+		1. appId - 应用ID，区分不同应用的ID，如：APM
+		2. page_no - 当前页码，默认值：1
+		3. page_size - 分页大小，默认值：500
+		4. searchCodes - 资源搜索代码的列表
+		5. tenantId - 租户ID，区分不同的租户，默认值为：admin
+		6. userAcc - 当前用户的账号(如：root)
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string",
+		    "pageNo": 0,
+		    "totalRows": 0
+		}
+
+
+5.7 根据资源类型id分页查询资源并翻译
+	URL： /api/rest/v01/pageResWithTrans/{resTypeId}
+	类型： GET
+	入参：
+		1. page_no - 当前分页，默认值：1
+		2. page_size - 分页大小，默认值：500
+		3. resTypeId - 资源类型Id
+		4. userAcc - 用户账号
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string",
+		    "pageNo": 0,
+		    "totalRows": 0
+		}
+
+
+5.8 创建资源实例
+	URL： /api/rest/v01/res
+	类型： POST
+	入参：
+		1. resParam - resParam
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+5.9 更新资源
+	URL： /api/rest/v01/res
+	类型： PUT
+	入参：
+		1. labels - 应用标签，如：ALL，APM
+		2. resParam - 资源实例参数
+		3. tenantId - 租户Id，默认值为admin
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+5.10 批量保存资源实例
+	URL： /api/rest/v01/res/batch
+	类型： POST
+	入参：
+		1. resParamList - resParamList
+	出参：
+		{
+		    "code": 0,
+		    "data": {},
+		    "msg": "string"
+		}
+
+
+5.11 批量删除资源,根据id
+	URL： /api/rest/v01/res/batchDel
+	类型： DELETE
+	入参：
+		1. resIds - 资源Id列表
+	出参：
+		{
+		    "code": 0,
+		    "data": true,
+		    "msg": "string"
+		}
+
+
+5.12 通过Id查询资源
+	URL： /api/rest/v01/res/{id}
+	类型： GET
+	入参：
+		1. id - 资源Id
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+5.13 通过Id删除资源实例
+	URL： /api/rest/v01/res/{id}
+	类型： DELETE
+	入参：
+		1. id - 资源Id
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+5.14 批量更新资源
+	URL： /api/rest/v01/resBatch
+	类型： PUT
+	入参：
+		1. labels - 应用标签，如：ALL，APM
+		2. param - 资源实例参数
+		3. tenantId - 租户Id，默认值为admin
+	出参：
+		{
+		    "code": 0,
+		    "failCells": [
+		        {
+		            "cellId": "string",
+		            "msg": "string",
+		            "propId": "string"
+		        }
+		    ],
+		    "fails": [
+		        {
+		            "msg": "string",
+		            "resId": "string"
+		        }
+		    ],
+		    "msg": "string"
+		}
+
+
+5.15 获取资源实例详情
+	URL： /api/rest/v01/resDetail
+	类型： GET
+	入参：
+		1. id - 资源Id
+		2. labels - 应用标签列表，例如：APM,BFSM，参见数据字典-标签
+		3. tenantId - 租户ID，区分不同的租户，默认值为：admin
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+5.16 通过关系查询资源列表
+	URL： /api/rest/v01/resRela/res
+	类型： GET
+	入参：
+		1. inOrOut - 关系方向，出：0，入：1
+		2. labels - 应用标签，如：APM
+		3. relLable - 关系标签，格式为：应用标签（详见数据字典标签）:关系类型（详见数据字典资源关系类型），如：ALL:15,
+		4. resId - 资源Id
+		5. tenantId - 租户ID，区分不同的租户，默认值为：admin
+	出参：
+		{
+		    "data": [
+		        {
+		            "id": "string",
+		            "props": {},
+		            "resId": "string",
+		            "resLabels": [
+		                "string"
+		            ],
+		            "resName": "string",
+		            "resState": {
+		                "health": "string",
+		                "id": "string",
+		                "lastUpdateTime": 0,
+		                "monState": "string"
+		            },
+		            "resTypeId": "string",
+		            "resTypeName": "string",
+		            "searchCode": "string",
+		            "tags": {}
+		        }
+		    ],
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+5.17 通过id查询资源(翻译属性名及值)
+	URL： /api/rest/v01/resTransToShow/id
+	类型： GET
+	入参：
+		1. id - 资源Id
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+5.18 通过searchCode查询资源(翻译属性名及值)
+	URL： /api/rest/v01/resTransToShow/sc
+	类型： GET
+	入参：
+		1. probeGroup - 资源采集组
+		2. sc - 资源搜索代码
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+5.19 根据资源属性查询资源实例
+	URL： /api/rest/v01/resWithTransByProp
+	类型： POST
+	入参：
+		1. param - 查询参数
+	出参：
+		{
+		    "data": {
+		        "pageNo": 0,
+		        "pageSize": 0,
+		        "total": 0,
+		        "viewList": [
+		            {
+		                "id": "string",
+		                "props": {},
+		                "resId": "string",
+		                "resLabels": [
+		                    "string"
+		                ],
+		                "resName": "string",
+		                "resState": {
+		                    "health": "string",
+		                    "id": "string",
+		                    "lastUpdateTime": 0,
+		                    "monState": "string"
+		                },
+		                "resTypeId": "string",
+		                "resTypeName": "string",
+		                "searchCode": "string",
+		                "tags": {}
+		            }
+		        ]
+		    },
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+5.20 根据资源属性(多值)查询资源实例
+	URL： /api/rest/v01/resWithTransByProp/mutiVal
+	类型： POST
+	入参：
+		1. param - param
+	出参：
+		{
+		    "data": {
+		        "pageNo": 0,
+		        "pageSize": 0,
+		        "total": 0,
+		        "viewList": [
+		            {
+		                "id": "string",
+		                "props": {},
+		                "resId": "string",
+		                "resLabels": [
+		                    "string"
+		                ],
+		                "resName": "string",
+		                "resState": {
+		                    "health": "string",
+		                    "id": "string",
+		                    "lastUpdateTime": 0,
+		                    "monState": "string"
+		                },
+		                "resTypeId": "string",
+		                "resTypeName": "string",
+		                "searchCode": "string",
+		                "tags": {}
+		            }
+		        ]
+		    },
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+
+6 资源类型属性接口
+6.1 根据资源类型属性id查询类型属性
+	URL： /api/rest/v01/resourceTypeProp/{resourceTypePropId}
+	类型： GET
+	入参：
+		1. resourceTypePropId - 属性Id，如：RTPROP-TMP_UNIX_LINUX-HOST_NAME
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+6.2 根据资源类型id，查询所有资源类型属性
+	URL： /api/rest/v01/typeProps/{resTypeId}
+	类型： GET
+	入参：
+		1. appId - 应用标签
+		2. resTypeId - 类型Id，如：MOD_WINDOWS
+	出参：
+		{
+		    "data": [
+		        {
+		            "cCode": "string",
+		            "cName": "string",
+		            "createTime": 0,
+		            "creatorId": "string",
+		            "discarded": true,
+		            "id": "string",
+		            "index": 0,
+		            "internalId": "string",
+		            "modifierId": "string",
+		            "modifyTime": 0,
+		            "props": {},
+		            "resTypeId": "string",
+		            "tags": {},
+		            "txtType": "string"
+		        }
+		    ],
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+
+7 资源类型接口
+7.1 按类型间关系查询类型
+	URL： /api/rest/v01/resType/byParam
+	类型： POST
+	入参：
+		1. param - 通过关系查询资源类型的参数
+	出参：
+		{
+		    "data": [
+		        {
+		            "createTime": 0,
+		            "creatorId": "string",
+		            "discarded": true,
+		            "groupId": "string",
+		            "id": "string",
+		            "internalId": "string",
+		            "isVirtual": true,
+		            "modifierId": "string",
+		            "modifyTime": 0,
+		            "props": {},
+		            "tags": {},
+		            "templates": [
+		                "string"
+		            ],
+		            "typeIcon": "string",
+		            "typeLabels": [
+		                "string"
+		            ],
+		            "typeName": "string",
+		            "typeNum": "string"
+		        }
+		    ],
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+7.2 通过类型Id查询类型定义
+	URL： /api/rest/v01/resType/{resTypeId}
+	类型： GET
+	入参：
+		1. resTypeId - 资源类型Id，如：MOD_TOMCAT
+	出参：
+		{
+		    "data": [
+		        {
+		            "createTime": 0,
+		            "creatorId": "string",
+		            "discarded": true,
+		            "groupId": "string",
+		            "id": "string",
+		            "internalId": "string",
+		            "isVirtual": true,
+		            "modifierId": "string",
+		            "modifyTime": 0,
+		            "props": {},
+		            "tags": {},
+		            "templates": [
+		                "string"
+		            ],
+		            "typeIcon": "string",
+		            "typeLabels": [
+		                "string"
+		            ],
+		            "typeName": "string",
+		            "typeNum": "string"
+		        }
+		    ],
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+7.3 查询全部资源类型
+	URL： /api/rest/v01/resTypeAll
+	类型： GET
+	入参：
+	出参：
+		{
+		    "data": [
+		        {
+		            "createTime": 0,
+		            "creatorId": "string",
+		            "discarded": true,
+		            "groupId": "string",
+		            "id": "string",
+		            "internalId": "string",
+		            "isVirtual": true,
+		            "modifierId": "string",
+		            "modifyTime": 0,
+		            "props": {},
+		            "tags": {},
+		            "templates": [
+		                "string"
+		            ],
+		            "typeIcon": "string",
+		            "typeLabels": [
+		                "string"
+		            ],
+		            "typeName": "string",
+		            "typeNum": "string"
+		        }
+		    ],
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+
+8 资源纳管接口
+8.1 子资源纳管
+	URL： /api/rest/v01/auto/discovery/childres
+	类型： POST
+	入参：
+		1. params - 子资源纳管参数
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+8.2 资源纳管
+	URL： /api/rest/v01/auto/discovery/res
+	类型： POST
+	入参：
+		1. paramObj - 纳管资源的信息参数
+	出参：
+		{
+		    "data": {},
+		    "errCode": 0,
+		    "msg": "string"
+		}
+
+
+
+9 资源账号配置
+9.1 根据id获取资源信息
+	URL： /api/rest/v01/confMng/getAccountConf/{id}
+	类型： GET
+	入参：
+		1. id - 资源id
+	出参：
+		{
+		    "code": 0,
+		    "data": {
+		        "id": "string",
+		        "moniObjId": "string",
+		        "moniType": "string",
+		        "param": "string",
+		        "pluginType": "string",
+		        "props": {},
+		        "tenantId": "string"
+		    },
+		    "msg": "string"
+		}
+
+
+
