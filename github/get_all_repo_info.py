@@ -3,7 +3,7 @@
 
 from github import Github
 
-g = Github("2567729201@qq.com", "Qw060101.github")
+g = Github("email@qq.com", "passwd")
 
 org = g.get_organization("PharbersDeveloper")
 org.login
